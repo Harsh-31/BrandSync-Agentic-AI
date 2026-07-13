@@ -2,18 +2,9 @@
 
 > A multi-agent AI system that turns a website URL into a cinematic video ad.
 
-```
-URL ──► Strategist ◄──critique/rebuttal──► Critic   (LoopAgent, up to 4 rounds)
-              │
-              │ approved BrandBrief
-              ▼
-        Creative Director
-              │ images · music · voiceover
-              ▼
-        Post-Production ──► final.mp4
 
-User feedback → Supervisor classifies → routes to the exact responsible agent
-```
+<img width="1216" height="1294" alt="BrandSync Agentic AI Architecure Diagram" src="https://github.com/user-attachments/assets/996a0e4f-8cde-42aa-964e-2d08241ed610" />
+
 
 This is genuinely multi-agent, not a renamed pipeline:
 
@@ -53,10 +44,9 @@ This is genuinely multi-agent, not a renamed pipeline:
 ```bash
 cd backend
 python -m venv .venv
-source .venv/bin/activate   # Windows: .venv\Scripts\activate
+source .venv/bin/activate 
 pip install -r requirements.txt
-cp .env.example .env
-# Fill in GOOGLE_API_KEY, ANTHROPIC_API_KEY, SUPABASE_URL, SUPABASE_KEY in .env
+cp .env
 uvicorn app.main:app --reload
 ```
 
@@ -181,9 +171,3 @@ Recommended free-tier path: **Render** (backend, no card required) + **Vercel** 
 ## Cost note
 
 Veo and Lyria are paid preview APIs. A single end-to-end run costs a few US dollars at current AI Studio rates. The URL-based cache (Supabase `cached_generations`) skips all generation for repeat URLs. Don't leave the feedback loop running in a browser tab.
-
-## Roadmap
-
-- A2A protocol so agents can be deployed as independent services
-- Retry logic for Lyria, TTS, and Nano Banana on transient API failures (Veo already has retries)
-- robots.txt check in the scraper before public deployment

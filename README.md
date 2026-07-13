@@ -44,7 +44,7 @@ This is genuinely multi-agent, not a renamed pipeline:
 ```bash
 cd backend
 python -m venv .venv
-source .venv/bin/activate   # Windows: .venv\Scripts\activate
+source .venv/bin/activate 
 pip install -r requirements.txt
 cp .env
 uvicorn app.main:app --reload

@@ -171,9 +171,3 @@ Recommended free-tier path: **Render** (backend, no card required) + **Vercel** 
 ## Cost note
 
 Veo and Lyria are paid preview APIs. A single end-to-end run costs a few US dollars at current AI Studio rates. The URL-based cache (Supabase `cached_generations`) skips all generation for repeat URLs. Don't leave the feedback loop running in a browser tab.
-
-## Roadmap
-
-- A2A protocol so agents can be deployed as independent services
-- Retry logic for Lyria, TTS, and Nano Banana on transient API failures (Veo already has retries)
-- robots.txt check in the scraper before public deployment

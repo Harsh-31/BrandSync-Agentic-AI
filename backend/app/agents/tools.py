@@ -1,10 +1,3 @@
-"""ADK-compatible tool functions. Each is a Python callable an LlmAgent can invoke.
-
-These are thin wrappers around the real generation tools in app.tools. They
-exist because ADK tools must have JSON-serializable args and return values,
-and because we want to update session state with structured data agents can
-read in subsequent steps.
-"""
 from __future__ import annotations
 
 import asyncio

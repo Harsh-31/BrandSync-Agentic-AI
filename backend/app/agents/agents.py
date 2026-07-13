@@ -1,29 +1,3 @@
-"""The agent definitions. Three primary agents + a critic role used inside a loop.
-
-The Strategist <-> Critic loop is what makes this genuinely agentic rather than
-a pipeline: the Critic agent can REJECT a brief and force the Strategist to
-revise, up to MAX_CRITIQUE_ITERATIONS. Both run on Claude (settings.MODEL_CRITIQUE)
-since this is a negotiation, not generation — the Strategist can push back on a
-critique with a `rebuttal` instead of just complying (see agents/tools.py
-submit_brief). Every other agent stays on Gemini; only Director/Post-Production's
-tools call the actual Gemini/Veo/Lyria/TTS generation models.
-
-Architecture:
-
-    Strategist  ──┐
-                  │ writes brief
-                  ▼
-              Critic (LoopAgent guard)
-                  │ accept? if no → back to Strategist with feedback
-                  ▼
-          Creative Director
-                  │ generates assets
-                  ▼
-          Post-Production
-                  │ produces final video
-                  ▼
-                Done
-"""
 from __future__ import annotations
 
 import json
@@ -40,12 +14,7 @@ from ..config import settings
 from . import prompts
 from . import tools as agent_tools
 
-# ADK's model registry auto-resolves any plain "claude-*" string to the
-# `Claude` class specifically, which is the VERTEX AI variant (needs
-# GOOGLE_CLOUD_PROJECT/GOOGLE_CLOUD_LOCATION) — not the direct-API
-# `AnthropicLlm` base class that just needs ANTHROPIC_API_KEY. Constructing
-# AnthropicLlm explicitly bypasses that registry resolution so this hits
-# Anthropic's API directly with no Google Cloud project involved.
+
 _critique_model = AnthropicLlm(model=settings.MODEL_CRITIQUE)
 
 
@@ -191,7 +160,6 @@ supervisor_agent = LlmAgent(
 )
 
 
-# Export the full pipeline as a SequentialAgent for convenience
 brandsync_pipeline = SequentialAgent(
     name="brandsync_pipeline",
     description="Full BrandSync pipeline: brief → assets → video.",

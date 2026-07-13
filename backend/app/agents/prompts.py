@@ -1,6 +1,3 @@
-"""Centralized agent instructions. Keeping all prompts in one file makes
-the critique-loop and handoff contracts easy to audit and tune.
-"""
 from __future__ import annotations
 
 from ..config import settings

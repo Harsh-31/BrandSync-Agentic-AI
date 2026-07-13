@@ -46,8 +46,7 @@ cd backend
 python -m venv .venv
 source .venv/bin/activate   # Windows: .venv\Scripts\activate
 pip install -r requirements.txt
-cp .env.example .env
-# Fill in GOOGLE_API_KEY, ANTHROPIC_API_KEY, SUPABASE_URL, SUPABASE_KEY in .env
+cp .env
 uvicorn app.main:app --reload
 ```
 
